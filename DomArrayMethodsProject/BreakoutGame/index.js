@@ -1,110 +1,104 @@
-const rulesBtn = document.getElementById('rules-btn');
+const ruleBtn = document.getElementById('rules-btn');
 const closeBtn = document.getElementById('close-btn');
 const rules = document.getElementById('rules');
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+// Draw Ball , paddle, & score
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
 let score =0;
 
-const brickRowCount = 9;
-const brickColumnCount = 5;
+const brickRowCount =9;
+const brickColumnCount =5;
 
-// Create ball props
+
+// create ball props
 const ball = {
-    x: canvas.width / 2,
-    y: canvas.height / 2,
-    size: 10,
-    speed: 4,
-    dx: 4,
-    dy: -4
-  };
+    x:canvas.width/2,
+    y:canvas.height/2,
+    size:10,
+    speed:4,
+    dx:4,
+    dy:-4
+}
 
-  //create paddle props
-  const paddle = {
-    x:canvas.width /2 -40,
-    y:canvas.height -20,
+
+//create paddle props 
+const paddle = {
+    x:canvas.width/2 -40,
+    y:canvas.height/2 -20,
     w:80,
     h:10,
     speed:8,
     dx:0
-  }
-
-  //create bricks props
-  const brickInfo = {
-    w:70,
-    h:20,
-    padding:10,
-    offsetX:45,
-    offsetY:60,
-    visible:true
-  }
-
-//Create bricks
-const bricks = [];
-for(let i=0;i<brickRowCount;i++){
-    bricks[i] = [];
-    for(let j=0;j<brickColumnCount;j++){
-        const x = i*(brickInfo.w + brickInfo.padding) + brickInfo.offsetX;
-        const y = j*(brickInfo.h + brickInfo.padding) + brickInfo.offsetY;
-        bricks[i][j] = {x,y,...brickInfo};
-    }
 }
 
 
-// Draw ball on canvas
-function drawBall() {
+// Task:1-->
+// Paint the pannel with bricks , paddle and the wall
+function drawBall(){
     ctx.beginPath();
-    ctx.arc(ball.x, ball.y, ball.size, 0, Math.PI * 2);
-    ctx.fillStyle = '#0095dd';
+    ctx.arc(ball.x, ball.y, ball.size, 0, Math.PI * 2); // Outer circle
+    ctx.fillStyle = "#0095dd";
     ctx.fill();
     ctx.closePath();
-  }
+}
 
-  //Draw paddle on canvas 
-  function drawPaddle(){
+function drawPaddle(){
     ctx.beginPath();
     ctx.rect(paddle.x,paddle.y,paddle.w,paddle.h);
-    ctx.fillStyle='#0095dd';
+    ctx.fillStyle="#0095dd";
     ctx.fill();
     ctx.closePath();
-  }
+}
 
-
-
-// Draw score on canvas
+// function to show score
 function drawScore(){
     ctx.font = '20px Arial';
-    ctx.fillText(`Score: ${score}`, canvas.width -100, 30);
-
+    ctx.fillText(`score:${score}`,canvas.width-100,30)
 }
 
-
-// Draw bricks on canvas
-function drawBricks(){
-    bricks.forEach(column => {
-        column.forEach(brick => {
-            ctx.beginPath();
-            ctx.rect(brick.x,brick.y,brick.w,brick.h);
-            ctx.fillStyle = brick.visible ? '#0095dd':'transparent';
-            ctx.fill();
-            ctx.closePath();
-        })
-    })
-}
-
-
-
-
-//   draw everything
 function draw(){
     drawBall();
     drawPaddle();
     drawScore();
 }
- draw(); 
 
-// Rules and close event handlers
-rulesBtn.addEventListener('click', () => 
-rules.classList.add('show'));
-closeBtn.addEventListener('click', () => 
-rules.classList.remove('show'));
+draw();
+
+
+
+// Rules and close handlers
+ruleBtn.addEventListener('click',() => rules.classList.add('show'));
+closeBtn.addEventListener('click',() => rules.classList.remove('show'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Plan for game 
+// 1.Create canvas context.
+// 2.create and draw ball.
+// 3.create and draw paddle.
+//4.create bricks.
+//5.Draw score.
+//6.Add Update.() --animation --requestanimationframe(cl);
+//7.Move Paddle.
+//8.keboard event handlers to move paddle.
+//9.Move ball.
+//10.Add wall boundaries.
+//11.Increase score when bricks break.
+//12.Lose --redrawBricks,reset score.
